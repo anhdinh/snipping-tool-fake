@@ -1,25 +1,40 @@
 package com.andy.screen.shoot.constanst;
 
+import com.andy.screen.shoot.WindowInfo;
+import com.andy.screen.shoot.WindowManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
 public class ViewUtils {
-    public static <T> T openView(@NotNull AppView view) {
+    public static <T> T openViewModal(@NotNull AppView view) {
         try {
-            FXMLLoader loader = new FXMLLoader(ViewUtils.class.getResource("/com/andy/screen/shoot/"+view.getFxmlFile()));
+            if (WindowManager.WINDOWS.containsKey(view)) {
+                WindowInfo info = WindowManager.WINDOWS.get(view);
+                if (info.getStage().isShowing()) {
+                    info.getStage().toFront();
+                    return (T) info.getController();
+                }
+            }
+            FXMLLoader loader = new FXMLLoader(ViewUtils.class.getResource("/com/andy/screen/shoot/" + view.getFxmlFile()));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle(view.getTitle());
             stage.setScene(new Scene(root));
-            stage.show();
-            return loader.getController();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            T controller = loader.getController();
+            WindowManager.WINDOWS.put(view, new WindowInfo(stage, controller));
+            stage.setOnCloseRequest(event -> WindowManager.WINDOWS.remove(view));
+            stage.showAndWait();
+            return controller;
+
         } catch (IOException e) {
-            throw new RuntimeException("ViewUtils#openView", e);
+            throw new RuntimeException("ViewUtils#openViewModal", e);
         }
     }
 }

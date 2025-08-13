@@ -35,7 +35,7 @@
             </padding>
 
             <!-- Nút New -->
-            <Button text="New!" onAction="#onNewButtonClick"/>
+            <Button fx:id="newButton" text="New!" onAction="#onNewButtonClick"/>
 
             <!-- ScrollPane chứa ảnh -->
             <ScrollPane fx:id="scrollPane"

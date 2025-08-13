@@ -1,6 +1,7 @@
 package com.andy.screen.shoot;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,5 +16,6 @@ public class MainApplication extends Application {
         stage.setTitle("ScreenSHOOT!");
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(event -> Platform.exit());
     }
 }

@@ -3,6 +3,7 @@ package com.andy.screen.shoot;
 import com.andy.screen.shoot.about.AboutController;
 import com.andy.screen.shoot.constanst.AppView;
 import com.andy.screen.shoot.constanst.ViewUtils;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.net.URL;
@@ -22,6 +25,9 @@ public class MainController implements Initializable {
     @FXML
     private ImageView imageView;
 
+    @FXML
+    private Button newButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -29,7 +35,10 @@ public class MainController implements Initializable {
 
     @FXML
     protected void onNewButtonClick() {
-        newAction();
+        // Lấy Stage chính từ bất kỳ node nào trên Scene (ở đây là Button)
+        Stage primaryStage = (Stage) newButton.getScene().getWindow();
+        Platform.runLater(() -> SnippingTool.startSnipping(primaryStage,imageView));
+
     }
 
 
@@ -48,15 +57,21 @@ public class MainController implements Initializable {
         System.exit(0);
     }
 
-    public void onCutClick(ActionEvent actionEvent) {}
-    public void onCopyClick(ActionEvent actionEvent) {}
-    public void onPasteClick(ActionEvent actionEvent) {}
+    public void onCutClick(ActionEvent actionEvent) {
+    }
+
+    public void onCopyClick(ActionEvent actionEvent) {
+    }
+
+    public void onPasteClick(ActionEvent actionEvent) {
+    }
+
     public void onAboutClick(ActionEvent actionEvent) {
-        AboutController aboutController = ViewUtils.openView(AppView.ABOUT);
+        AboutController aboutController = ViewUtils.openViewModal(AppView.ABOUT);
     }
 
 
-    public void newAction(){
+    public void newAction() {
         String path = "~/Documents/.sceenshot".replaceFirst("^~", System.getProperty("user.home"));
         File folder = new File(path);
         File[] files = folder.listFiles((dir, name) ->
