@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.andy.screen.shoot.MainController">
+
+    <!-- Thanh menu -->
+    <top>
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem text="New" onAction="#onNewClick"/>
+                <MenuItem text="Save" onAction="#onSaveClick"/>
+                <MenuItem text="Exit" onAction="#onExitClick"/>
+            </Menu>
+            <Menu text="Edit">
+                <MenuItem text="Cut" onAction="#onCutClick"/>
+                <MenuItem text="Copy" onAction="#onCopyClick"/>
+                <MenuItem text="Paste" onAction="#onPasteClick"/>
+            </Menu>
+            <Menu text="Help">
+                <MenuItem text="About" onAction="#onAboutClick"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <!-- Nội dung chính -->
+    <center>
+        <VBox alignment="CENTER" spacing="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+
+            <!-- Nút New -->
+            <Button text="New!" onAction="#onNewButtonClick"/>
+
+            <!-- ScrollPane chứa ảnh -->
+            <ScrollPane fx:id="scrollPane"
+                        pannable="true"
+                        fitToWidth="true"
+                        fitToHeight="true"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <StackPane alignment="CENTER">
+                    <ImageView fx:id="imageView"
+                               preserveRatio="true"
+                               visible="false"/>
+                </StackPane>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>
