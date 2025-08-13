@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -62,7 +63,7 @@ public class MainController implements Initializable {
                 name.matches("^Screenshot from \\d{4}-\\d{2}-\\d{2} \\d{2}-\\d{2}-\\d{2}\\.png$"));
         if (files != null && files.length > 0) {
             File newest = Arrays.stream(files)
-                    .max((f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()))
+                    .max(Comparator.comparingLong(File::lastModified))
                     .orElse(files[0]);
             Image img = new Image(newest.toURI().toString());
             imageView.setImage(img);
