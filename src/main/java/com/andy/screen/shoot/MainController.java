@@ -20,6 +20,10 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     @FXML
     public ScrollPane scrollPane;
+    @FXML
+    public Button imageToText;
+    @FXML
+    public Button readQr;
 
     @FXML
     private ImageView imageView;
@@ -29,14 +33,14 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("register");
         AppEventBus.getInstance().register(this);
-        System.out.println("register done");
+        hideFeatures();
     }
 
     @FXML
     protected void onNewButtonClick() {
         newButton.setVisible(false);
+        hideFeatures();
         newAction();
     }
 
@@ -49,6 +53,7 @@ public class MainController implements Initializable {
     @FXML
     private void onSaveClick() {
         System.out.println("Save menu clicked");
+        AppEventBus.getInstance().post(new ScreenOverlayCloseEvent("xxx"));
     }
 
     @FXML
@@ -58,6 +63,7 @@ public class MainController implements Initializable {
     }
 
     public void onCutClick(ActionEvent actionEvent) {
+
     }
 
     public void onCopyClick(ActionEvent actionEvent) {
@@ -72,12 +78,28 @@ public class MainController implements Initializable {
 
     @Subscribe
     public void onOverlayClose(ScreenOverlayCloseEvent event){
-        System.out.println(event.getData());
+        showFeatures();
     }
 
 
     public void newAction() {
         Stage primaryStage = (Stage) newButton.getScene().getWindow();
         Platform.runLater(() -> SnippingTool.startSnipping(primaryStage,imageView));
+    }
+
+    public void onImageToText(ActionEvent actionEvent) {
+    }
+
+    public void onReadQr(ActionEvent actionEvent) {
+    }
+
+    public void showFeatures(){
+        readQr.setVisible(true);
+        imageToText.setVisible(true);
+    }
+
+    public void hideFeatures(){
+        readQr.setVisible(false);
+        imageToText.setVisible(false);
     }
 }

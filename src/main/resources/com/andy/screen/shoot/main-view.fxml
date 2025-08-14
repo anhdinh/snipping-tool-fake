@@ -25,18 +25,26 @@
                 <MenuItem text="About" onAction="#onAboutClick"/>
             </Menu>
         </MenuBar>
+
+        <VBox alignment="CENTER" spacing="10.0">
+            <padding>
+                <Insets top="10"/>
+            </padding>
+            <Button fx:id="imageToText" text="imgToText" onAction="#onImageToText"/>
+            <Button fx:id="readQr" text="QR reader" onAction="#onReadQr"/>
+        </VBox>
     </top>
 
     <!-- Nội dung chính -->
     <center>
-        <VBox alignment="CENTER" spacing="20.0">
-            <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-            </padding>
+        <VBox alignment="CENTER" spacing="1">
+<!--            <padding>-->
+<!--                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
+<!--            </padding>-->
 
             <!-- Nút New -->
-            <Button fx:id="newButton" text="New!" onAction="#onNewButtonClick"/>
 
+            <Button fx:id="newButton" text="New!" onAction="#onNewButtonClick"/>
             <!-- ScrollPane chứa ảnh -->
             <ScrollPane fx:id="scrollPane"
                         pannable="true"

@@ -113,24 +113,30 @@ public class SnippingTool {
         overlayStage.setHeight(screenHeight);
         overlayStage.setScene(overlayScene);
 
-        overlayStage.setOnCloseRequest(event->{
-            ScreenOverlayCloseEvent data  = new ScreenOverlayCloseEvent("close");
-            AppEventBus.getInstance().post(data);
-        });
 
         // Key handlers
         overlayScene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ESCAPE) {
+                ScreenOverlayCloseEvent data  = new ScreenOverlayCloseEvent("close");
+                AppEventBus.getInstance().post(data);
                 overlayStage.close();
                 primaryStage.setIconified(false);
+                fireOverlayCloseEvent();
             } else if (e.getCode() == KeyCode.ENTER) {
                 cropAndShow(fxImage, selection.getRectangle(), targetImageView);
+                ScreenOverlayCloseEvent data  = new ScreenOverlayCloseEvent("close");
+                AppEventBus.getInstance().post(data);
                 overlayStage.close();
                 primaryStage.setIconified(false);
+                fireOverlayCloseEvent();
             }
         });
 
         overlayStage.show();
+    }
+
+    public static void fireOverlayCloseEvent(){
+        AppEventBus.getInstance().post(new ScreenOverlayCloseEvent("close"));
     }
 
     private static void cropAndShow(Image fxImage, Rectangle fxRect, ImageView targetImageView) {
