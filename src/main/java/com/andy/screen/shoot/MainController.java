@@ -3,24 +3,23 @@ package com.andy.screen.shoot;
 import com.andy.screen.shoot.about.AboutController;
 import com.andy.screen.shoot.constanst.AppView;
 import com.andy.screen.shoot.constanst.ViewUtils;
+import com.andy.screen.shoot.event.AppEventBus;
+import com.andy.screen.shoot.event.ScreenOverlayCloseEvent;
+import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.stage.StageStyle;
-
-import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    @FXML
+    public ScrollPane scrollPane;
 
     @FXML
     private ImageView imageView;
@@ -30,15 +29,15 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        System.out.println("register");
+        AppEventBus.getInstance().register(this);
+        System.out.println("register done");
     }
 
     @FXML
     protected void onNewButtonClick() {
-        // Lấy Stage chính từ bất kỳ node nào trên Scene (ở đây là Button)
-        Stage primaryStage = (Stage) newButton.getScene().getWindow();
-        Platform.runLater(() -> SnippingTool.startSnipping(primaryStage,imageView));
-
+        newButton.setVisible(false);
+        newAction();
     }
 
 
@@ -54,6 +53,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void onExitClick() {
+        AppEventBus.getInstance().unregister(this);
         System.exit(0);
     }
 
@@ -70,33 +70,14 @@ public class MainController implements Initializable {
         AboutController aboutController = ViewUtils.openViewModal(AppView.ABOUT);
     }
 
+    @Subscribe
+    public void onOverlayClose(ScreenOverlayCloseEvent event){
+        System.out.println(event.getData());
+    }
+
 
     public void newAction() {
-        String path = "~/Documents/.sceenshot".replaceFirst("^~", System.getProperty("user.home"));
-        File folder = new File(path);
-        File[] files = folder.listFiles((dir, name) ->
-                name.matches("^Screenshot from \\d{4}-\\d{2}-\\d{2} \\d{2}-\\d{2}-\\d{2}\\.png$"));
-        if (files != null && files.length > 0) {
-            File newest = Arrays.stream(files)
-                    .max(Comparator.comparingLong(File::lastModified))
-                    .orElse(files[0]);
-            Image img = new Image(newest.toURI().toString());
-            imageView.setImage(img);
-            imageView.setVisible(true);
-            Stage stage = (Stage) imageView.getScene().getWindow();
-            double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
-            double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
-
-            double imgWidth = img.getWidth();
-            double imgHeight = img.getHeight();
-
-            double targetWidth = Math.min(imgWidth + 50, screenWidth * 0.9);
-            double targetHeight = Math.min(imgHeight + 100, screenHeight * 0.9);
-
-            stage.setWidth(targetWidth);
-            stage.setHeight(targetHeight);
-        } else {
-            System.out.println("Không tìm thấy ảnh screenshot trong thư mục: " + path);
-        }
+        Stage primaryStage = (Stage) newButton.getScene().getWindow();
+        Platform.runLater(() -> SnippingTool.startSnipping(primaryStage,imageView));
     }
 }

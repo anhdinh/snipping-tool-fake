@@ -1,5 +1,8 @@
 package com.andy.screen.shoot.constanst;
 
+import lombok.Getter;
+
+@Getter
 public enum AppView {
     MAIN("main-view.fxml", "Main"),
     ABOUT("about-view.fxml", "About"),
@@ -14,11 +17,4 @@ public enum AppView {
         this.title = title;
     }
 
-    public String getFxmlFile() {
-        return fxmlFile;
-    }
-
-    public String getTitle() {
-        return title;
-    }
 }

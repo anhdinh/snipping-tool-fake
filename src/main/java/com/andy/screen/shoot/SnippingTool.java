@@ -1,5 +1,7 @@
 package com.andy.screen.shoot;
 
+import com.andy.screen.shoot.event.AppEventBus;
+import com.andy.screen.shoot.event.ScreenOverlayCloseEvent;
 import javafx.animation.PauseTransition;
 import javafx.beans.binding.Bindings;
 import javafx.application.Platform;
@@ -27,9 +29,7 @@ public class SnippingTool {
 
     public static void startSnipping(Stage primaryStage, ImageView targetImageView) {
         Platform.runLater(() -> {
-            // Ẩn / iconify stage chính để không bị chụp
             primaryStage.setIconified(true);
-
             PauseTransition pause = new PauseTransition(Duration.millis(100));
             pause.setOnFinished(event -> captureAndShowOverlay(primaryStage, targetImageView));
             pause.play();
@@ -44,7 +44,6 @@ public class SnippingTool {
             Image fxImage = SwingFXUtils.toFXImage(screenCapture, null);
             showOverlay(primaryStage, fxImage, targetImageView);
         } catch (AWTException ex) {
-            ex.printStackTrace();
             Platform.runLater(() -> primaryStage.setIconified(false));
         }
     }
@@ -53,12 +52,10 @@ public class SnippingTool {
         double screenWidth = Screen.getPrimary().getBounds().getWidth();
         double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
-        // Ảnh toàn màn hình
         ImageView imageView = new ImageView(fxImage);
         imageView.setFitWidth(screenWidth);
         imageView.setFitHeight(screenHeight);
 
-        // Vùng chọn mặc định (giữa màn hình)
         double selWidth = 200;
         double selHeight = 150;
         double selX = (screenWidth - selWidth) / 2;
@@ -115,6 +112,11 @@ public class SnippingTool {
         overlayStage.setWidth(screenWidth);
         overlayStage.setHeight(screenHeight);
         overlayStage.setScene(overlayScene);
+
+        overlayStage.setOnCloseRequest(event->{
+            ScreenOverlayCloseEvent data  = new ScreenOverlayCloseEvent("close");
+            AppEventBus.getInstance().post(data);
+        });
 
         // Key handlers
         overlayScene.setOnKeyPressed(e -> {

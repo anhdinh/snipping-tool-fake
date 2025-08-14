@@ -15,11 +15,16 @@ module com.andy.screen.shoot {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires guava;
+    requires static lombok;
 
     // Mở gói chứa MainApplication để JavaFX FXML Loader có thể truy cập
-    opens com.andy.screen.shoot to javafx.fxml;
-    opens com.andy.screen.shoot.about to javafx.fxml;
+    opens com.andy.screen.shoot to javafx.fxml,com.google.common;;
+    opens com.andy.screen.shoot.about to javafx.fxml,com.google.common;;
 
     // Xuất gói để ứng dụng có thể chạy
     exports com.andy.screen.shoot;
+    exports com.andy.screen.shoot.event;
+    exports com.andy.screen.shoot.about;
+    exports com.andy.screen.shoot.constanst;
 }
