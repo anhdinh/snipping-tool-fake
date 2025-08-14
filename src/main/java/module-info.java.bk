@@ -1,30 +1,23 @@
-// Đặt file này vào thư mục src/main/java
-module com.andy.screen.shoot {
-    // Khai báo các module của JavaFX mà ứng dụng của bạn cần
+open module com.andy.screen.shoot {
+    // JavaFX
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
-    requires javafx.swing;
     requires javafx.media;
+    requires javafx.swing;
 
-    // Khai báo các module của các thư viện khác
+    // Desktop (AWT/Swing)
+    requires java.desktop;
+    requires mbassador;
+    // Third-party modular libs
     requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
-    requires com.almasb.fxgl.all;
-    requires guava;
+
     requires static lombok;
 
-    // Mở gói chứa MainApplication để JavaFX FXML Loader có thể truy cập
-    opens com.andy.screen.shoot to javafx.fxml,com.google.common;;
-    opens com.andy.screen.shoot.about to javafx.fxml,com.google.common;;
-
-    // Xuất gói để ứng dụng có thể chạy
+    // Xuất gói cho bên ngoài
     exports com.andy.screen.shoot;
     exports com.andy.screen.shoot.event;
-    exports com.andy.screen.shoot.about;
+    exports com.andy.screen.shoot.controller;
     exports com.andy.screen.shoot.constanst;
 }

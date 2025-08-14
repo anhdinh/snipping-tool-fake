@@ -1,5 +1,6 @@
 package com.andy.screen.shoot.constanst;
 
+
 import lombok.Getter;
 
 @Getter

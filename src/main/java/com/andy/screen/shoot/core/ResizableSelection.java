@@ -1,4 +1,4 @@
-package com.andy.screen.shoot;
+package com.andy.screen.shoot.core;
 
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -33,10 +33,10 @@ public class ResizableSelection extends Pane {
 
         rect = new Rectangle(0, 0, 0, 0);
         rect.setFill(Color.TRANSPARENT);
-        rect.setStroke(Color.BLUE);
+        rect.setStroke(Color.WHITE);
         rect.setStrokeWidth(2);
 
-        double handleSize = 15;
+        double handleSize = 20;
         topLeft = createHandle(handleSize, Cursor.NW_RESIZE);
         topRight = createHandle(handleSize, Cursor.NE_RESIZE);
         bottomLeft = createHandle(handleSize, Cursor.SW_RESIZE);
@@ -92,7 +92,7 @@ public class ResizableSelection extends Pane {
     }
 
     private Circle createHandle(double size, Cursor cursor) {
-        Circle c = new Circle(size / 2, Color.RED);
+        Circle c = new Circle(size / 2, Color.WHITE);
         c.setCursor(cursor);
         return c;
     }

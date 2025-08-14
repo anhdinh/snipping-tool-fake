@@ -5,46 +5,75 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.andy.screen.shoot.MainController">
+            fx:controller="com.andy.screen.shoot.controller.MainController">
 
     <!-- Thanh menu -->
     <top>
-        <MenuBar>
-            <Menu text="File">
-                <MenuItem text="New" onAction="#onNewClick"/>
-                <MenuItem text="Save" onAction="#onSaveClick"/>
-                <MenuItem text="Exit" onAction="#onExitClick"/>
-            </Menu>
-            <Menu text="Edit">
-                <MenuItem text="Cut" onAction="#onCutClick"/>
-                <MenuItem text="Copy" onAction="#onCopyClick"/>
-                <MenuItem text="Paste" onAction="#onPasteClick"/>
-            </Menu>
-            <Menu text="Help">
-                <MenuItem text="About" onAction="#onAboutClick"/>
-            </Menu>
-        </MenuBar>
+        <VBox spacing="5">
+            <!-- Thanh menu -->
+            <MenuBar>
+                <Menu text="File">
+                    <MenuItem text="New" onAction="#onNewClick"/>
+                    <MenuItem text="Save" onAction="#onSaveClick"/>
+                    <MenuItem text="Exit" onAction="#onExitClick"/>
+                </Menu>
+                <Menu text="Edit">
+                    <MenuItem text="Cut" onAction="#onCutClick"/>
+                    <MenuItem text="Copy" onAction="#onCopyClick"/>
+                    <MenuItem text="Paste" onAction="#onPasteClick"/>
+                </Menu>
+                <Menu text="Help">
+                    <MenuItem text="About" onAction="#onAboutClick"/>
+                </Menu>
+            </MenuBar>
 
-        <VBox alignment="CENTER" spacing="10.0">
-            <padding>
-                <Insets top="10"/>
-            </padding>
-            <Button fx:id="imageToText" text="imgToText" onAction="#onImageToText"/>
-            <Button fx:id="readQr" text="QR reader" onAction="#onReadQr"/>
+            <HBox alignment="CENTER" spacing="10.0" style="-fx-border-color: transparent; -fx-border-width: 2; -fx-border-style: solid;">
+                <padding>
+                    <Insets top="10" bottom="10"/>
+                </padding>
+
+                <!-- Button chuyển hình ảnh thành text -->
+                <Button fx:id="imageToText" text="Image to Text" onAction="#onImageToText">
+                    <graphic>
+                        <ImageView fitWidth="24" fitHeight="24">
+                            <Image url="@images/file-word-solid-full.svg"/>
+                        </ImageView>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Image to Text"/>
+                    </tooltip>
+                </Button>
+
+                <!-- Button đọc QR -->
+                <Button fx:id="readQr" text="Read QR" onAction="#onReadQr">
+                    <graphic>
+                        <ImageView fitWidth="24" fitHeight="24">
+                            <Image url="@images/qrcode-solid.svg"/>
+                        </ImageView>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Read QR Code"/>
+                    </tooltip>
+                </Button>
+            </HBox>
         </VBox>
     </top>
 
     <!-- Nội dung chính -->
     <center>
-        <VBox alignment="CENTER" spacing="1">
-<!--            <padding>-->
-<!--                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
-<!--            </padding>-->
+        <VBox spacing="1" style="-fx-border-color: transparent; -fx-border-width: 2; -fx-border-style: solid;">
+           <padding>
+               <Insets top="5"/>
+           </padding>
 
-            <!-- Nút New -->
+            <HBox alignment="CENTER">
+                <Button fx:id="newButton" text="New!" onAction="#onNewButtonClick"/>
+            </HBox>
 
-            <Button fx:id="newButton" text="New!" onAction="#onNewButtonClick"/>
             <!-- ScrollPane chứa ảnh -->
             <ScrollPane fx:id="scrollPane"
                         pannable="true"
@@ -59,4 +88,16 @@
             </ScrollPane>
         </VBox>
     </center>
+
+    <bottom>
+        <VBox>
+            <Line endX="1" stroke="rgba(0,0,0,0.5)"/>
+            <Text>
+                <![CDATA[© 2025 Andy Joy. All rights reserved.]]>
+                <VBox.margin>
+                    <Insets top="5" right="10" bottom="5" left="10"/>
+                </VBox.margin>
+            </Text>
+        </VBox>
+    </bottom>
 </BorderPane>

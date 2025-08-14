@@ -1,7 +1,9 @@
-package com.andy.screen.shoot;
+package com.andy.screen.shoot.objects;
 
 import javafx.stage.Stage;
+import lombok.Getter;
 
+@Getter
 public class WindowInfo {
     private final Stage stage;
     private final Object controller;
@@ -11,11 +13,4 @@ public class WindowInfo {
         this.controller = controller;
     }
 
-    public Stage getStage() {
-        return stage;
-    }
-
-    public Object getController() {
-        return controller;
-    }
 }

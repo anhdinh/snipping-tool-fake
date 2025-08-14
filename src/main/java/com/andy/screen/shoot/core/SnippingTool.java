@@ -1,4 +1,4 @@
-package com.andy.screen.shoot;
+package com.andy.screen.shoot.core;
 
 import com.andy.screen.shoot.event.AppEventBus;
 import com.andy.screen.shoot.event.ScreenOverlayCloseEvent;
@@ -22,9 +22,6 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-
 public class SnippingTool {
 
     public static void startSnipping(Stage primaryStage, ImageView targetImageView) {
@@ -117,15 +114,11 @@ public class SnippingTool {
         // Key handlers
         overlayScene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ESCAPE) {
-                ScreenOverlayCloseEvent data  = new ScreenOverlayCloseEvent("close");
-                AppEventBus.getInstance().post(data);
                 overlayStage.close();
                 primaryStage.setIconified(false);
-                fireOverlayCloseEvent();
+                //fireOverlayCloseEvent();
             } else if (e.getCode() == KeyCode.ENTER) {
                 cropAndShow(fxImage, selection.getRectangle(), targetImageView);
-                ScreenOverlayCloseEvent data  = new ScreenOverlayCloseEvent("close");
-                AppEventBus.getInstance().post(data);
                 overlayStage.close();
                 primaryStage.setIconified(false);
                 fireOverlayCloseEvent();

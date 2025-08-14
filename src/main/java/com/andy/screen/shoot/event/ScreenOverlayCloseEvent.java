@@ -1,10 +1,17 @@
 package com.andy.screen.shoot.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+
+@Setter
+@Getter
 public class ScreenOverlayCloseEvent {
+
+    public ScreenOverlayCloseEvent(String data) {
+        this.data = data;
+    }
+
     public String data;
+
 }

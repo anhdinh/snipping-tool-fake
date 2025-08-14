@@ -1,7 +1,7 @@
-package com.andy.screen.shoot;
+package com.andy.screen.shoot.core;
 
 import com.andy.screen.shoot.constanst.AppView;
-import javafx.stage.Stage;
+import com.andy.screen.shoot.objects.WindowInfo;
 
 import java.util.HashMap;
 import java.util.Map;

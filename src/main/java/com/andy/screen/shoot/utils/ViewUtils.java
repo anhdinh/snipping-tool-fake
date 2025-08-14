@@ -1,7 +1,8 @@
-package com.andy.screen.shoot.constanst;
+package com.andy.screen.shoot.utils;
 
-import com.andy.screen.shoot.WindowInfo;
-import com.andy.screen.shoot.WindowManager;
+import com.andy.screen.shoot.objects.WindowInfo;
+import com.andy.screen.shoot.core.WindowManager;
+import com.andy.screen.shoot.constanst.AppView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
