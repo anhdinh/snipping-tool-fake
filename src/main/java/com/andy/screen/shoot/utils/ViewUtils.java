@@ -17,9 +17,9 @@ public class ViewUtils {
         try {
             if (WindowManager.WINDOWS.containsKey(view)) {
                 WindowInfo info = WindowManager.WINDOWS.get(view);
-                if (info.getStage().isShowing()) {
-                    info.getStage().toFront();
-                    return (T) info.getController();
+                if (info.stage().isShowing()) {
+                    info.stage().toFront();
+                    return (T) info.controller();
                 }
             }
             FXMLLoader loader = new FXMLLoader(ViewUtils.class.getResource("/com/andy/screen/shoot/" + view.getFxmlFile()));
