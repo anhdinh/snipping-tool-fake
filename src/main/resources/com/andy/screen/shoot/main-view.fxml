@@ -80,7 +80,7 @@
                         fitToWidth="true"
                         fitToHeight="true"
                         style="-fx-background-color: transparent; -fx-border-color: transparent;">
-                <StackPane>
+                <StackPane fx:id="stackPaneImageContainer">
                     <ImageView fx:id="imageView"
                                preserveRatio="true"
                                visible="false"/>
