@@ -40,7 +40,10 @@ public class MainController implements Initializable {
     @FXML
     public Button readQr;
 
+
     public StackPane stackPaneImageContainer;
+
+    public Button copyButton;
 
     @FXML
     private ImageView imageView;
@@ -90,11 +93,15 @@ public class MainController implements Initializable {
     public void onCutClick(ActionEvent actionEvent) throws InterruptedException {
         effect = new ShimmerOverlay(imageView);
         effect.start(() -> {
-        });
+            effect.stop();
+        },Duration.seconds(5));
     }
 
     public void onCopyClick(ActionEvent actionEvent) {
-        effect.stop();
+        ClipboardContent content = new ClipboardContent();
+        content.putImage(imageView.getImage());
+        Clipboard.getSystemClipboard().setContent(content);
+        ToastUtils.showInfo("Info", "Copied to clipboard!");
     }
 
     public void onPasteClick(ActionEvent actionEvent) {
@@ -162,12 +169,14 @@ public void showFeatures() {
     scrollPane.setVisible(true);
     readQr.setVisible(true);
     imageToText.setVisible(true);
+    copyButton.setVisible(true);
 }
 
 public void hideFeatures() {
     scrollPane.setVisible(false);
     readQr.setVisible(false);
     imageToText.setVisible(false);
+    copyButton.setVisible(false);
 }
 
 public void onClickNewButton() {

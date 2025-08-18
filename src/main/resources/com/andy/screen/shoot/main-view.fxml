@@ -59,6 +59,10 @@
                         <Tooltip text="Read QR Code"/>
                     </tooltip>
                 </Button>
+
+                <Button fx:id="copyButton" visible="false" text="Copy" onAction="#onCopyClick">
+
+                </Button>
             </HBox>
         </VBox>
     </top>
