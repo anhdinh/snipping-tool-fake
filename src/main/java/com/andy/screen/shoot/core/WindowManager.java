@@ -7,5 +7,5 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WindowManager {
-    public static Map<AppView, WindowInfo> WINDOWS = new HashMap<AppView,WindowInfo>();
+    public static Map<AppView, WindowInfo> WINDOWS = new HashMap<>();
 }
