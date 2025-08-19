@@ -78,7 +78,11 @@
             </padding>
 
             <HBox alignment="CENTER">
-                <Button fx:id="newButton" text="New!" onAction="#onNewButtonClick"/>
+                <Button fx:id="newButton" text="Screen Shot" onAction="#onNewButtonClick">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="FILE_PICTURE_ALT" size="2em" />
+                    </graphic>
+                </Button>
             </HBox>
             <HBox alignment="CENTER">
                 <!-- ScrollPane chứa ảnh -->
