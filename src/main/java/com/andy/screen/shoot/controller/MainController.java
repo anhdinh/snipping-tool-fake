@@ -101,6 +101,7 @@ public class MainController implements Initializable {
         ClipboardContent content = new ClipboardContent();
         content.putImage(imageView.getImage());
         Clipboard.getSystemClipboard().setContent(content);
+        copyButton.setDisable(true);
         ToastUtils.showInfo("Info", "Copied to clipboard!");
     }
 
@@ -120,6 +121,7 @@ public class MainController implements Initializable {
 
     @SneakyThrows
     public void onImageToText(ActionEvent actionEvent) {
+
         initOverLay();
         effect = new ShimmerOverlay(imageView);
         effect.start(() -> {
@@ -132,10 +134,10 @@ public class MainController implements Initializable {
 
                     var listTexts = OCRUtils.imageViewToLines(imageView);
                     if (CollectionUtils.isEmpty(listTexts)) {
-
                         ToastUtils.showInfo("Info", "No text found!");
                         return;
                     }
+                imageToText.setDisable(true);
                 drawOCRFields(listTexts, overlayPane);
         //vẽ các texfield lên trên overlayPane ở đây
         effect.stop();
@@ -155,13 +157,16 @@ public class MainController implements Initializable {
 
 public void onReadQr(ActionEvent actionEvent) {
     log.info("onReadQr");
+    readQr.setDisable(true);
     var qr = QRUtils.readQR(imageView);
     if (qr == null) {
         ToastUtils.showError("Read QR Code", "Not QR code found");
         return;
     }
+
     ClipboardUtils.copyToClipboard(qr);
     ToastUtils.showInfo("Read QR Code", "Copied to clipboard");
+
 
 }
 
@@ -170,6 +175,9 @@ public void showFeatures() {
     readQr.setVisible(true);
     imageToText.setVisible(true);
     copyButton.setVisible(true);
+    copyButton.setDisable(false);
+    imageToText.setDisable(false);
+    readQr.setDisable(false);
 }
 
 public void hideFeatures() {
@@ -188,7 +196,6 @@ public void initOverLay() {
     if (overlayPane != null && overlayPane.getChildren() != null) {
         overlayPane.getChildren().clear();
     }
-
     overlayPane = new Pane();
     overlayPane.getChildren().clear();
     overlayPane.setVisible(true);
@@ -196,7 +203,10 @@ public void initOverLay() {
     overlayPane.setMouseTransparent(false);
     overlayPane.prefWidthProperty().bind(imageView.fitWidthProperty());
     overlayPane.prefHeightProperty().bind(imageView.fitHeightProperty());
+    stackPaneImageContainer.prefWidthProperty().bind(imageView.fitWidthProperty());
+    stackPaneImageContainer.prefHeightProperty().bind(imageView.fitHeightProperty());
     stackPaneImageContainer.getChildren().add(overlayPane);
+
 }
 
 private void drawOCRFields(List<OCRUtils.OCRResult> results, Pane overlayPane) {

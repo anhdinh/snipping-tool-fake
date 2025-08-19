@@ -8,6 +8,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.image.Image?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.andy.screen.shoot.controller.MainController">
 
@@ -31,7 +33,8 @@
                 </Menu>
             </MenuBar>
 
-            <HBox alignment="CENTER" spacing="10.0" style="-fx-border-color: transparent; -fx-border-width: 2; -fx-border-style: solid;">
+            <HBox alignment="CENTER" spacing="10.0"
+                  style="-fx-border-color: transparent; -fx-border-width: 2; -fx-border-style: solid;">
                 <padding>
                     <Insets top="10" bottom="10"/>
                 </padding>
@@ -39,10 +42,9 @@
                 <!-- Button chuyển hình ảnh thành text -->
                 <Button fx:id="imageToText" text="Image to Text" onAction="#onImageToText">
                     <graphic>
-                        <ImageView fitWidth="24" fitHeight="24">
-                            <Image url="@images/file-word-solid-full.svg"/>
-                        </ImageView>
+                        <FontAwesomeIconView glyphName="FILE_TEXT" size="1em"/>
                     </graphic>
+
                     <tooltip>
                         <Tooltip text="Image to Text"/>
                     </tooltip>
@@ -51,16 +53,17 @@
                 <!-- Button đọc QR -->
                 <Button fx:id="readQr" text="Read QR" onAction="#onReadQr">
                     <graphic>
-                        <ImageView fitWidth="24" fitHeight="24">
-                            <Image url="@images/qrcode-solid.svg"/>
-                        </ImageView>
+                        <FontAwesomeIconView glyphName="QRCODE" size="1em"/>
                     </graphic>
                     <tooltip>
                         <Tooltip text="Read QR Code"/>
                     </tooltip>
                 </Button>
 
-                <Button fx:id="copyButton" visible="false" text="Copy" onAction="#onCopyClick">
+                <Button fx:id="copyButton" visible="false" text="Copy Image" onAction="#onCopyClick">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="COPY" size="1em"/>
+                    </graphic>
 
                 </Button>
             </HBox>
@@ -70,38 +73,39 @@
     <!-- Nội dung chính -->
     <center>
         <VBox spacing="1" style="-fx-border-color: transparent; -fx-border-width: 2; -fx-border-style: solid;">
-           <padding>
-               <Insets top="5"/>
-           </padding>
+            <padding>
+                <Insets top="5"/>
+            </padding>
 
             <HBox alignment="CENTER">
                 <Button fx:id="newButton" text="New!" onAction="#onNewButtonClick"/>
             </HBox>
-
-            <!-- ScrollPane chứa ảnh -->
-            <ScrollPane fx:id="scrollPane"
-                        pannable="true"
-                        fitToWidth="true"
-                        fitToHeight="true"
-                        style="-fx-background-color: transparent; -fx-border-color: transparent;">
-                <StackPane fx:id="stackPaneImageContainer">
-                    <ImageView fx:id="imageView"
-                               preserveRatio="true"
-                               visible="false"/>
-                </StackPane>
-            </ScrollPane>
+            <HBox alignment="CENTER">
+                <!-- ScrollPane chứa ảnh -->
+                <ScrollPane fx:id="scrollPane"
+                            pannable="true"
+                            style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                    <StackPane fx:id="stackPaneImageContainer">
+                        <ImageView fx:id="imageView"
+                                   preserveRatio="true"
+                                   visible="false"/>
+                    </StackPane>
+                </ScrollPane>
+            </HBox>
         </VBox>
     </center>
 
     <bottom>
-        <VBox>
-            <Line endX="1" stroke="rgba(0,0,0,0.5)"/>
-            <Text>
-                <![CDATA[© 2025 Andy Joy. All rights reserved.]]>
+        <VBox style="-fx-border-color: rgba(0, 0, 0, 0.3) transparent transparent transparent; -fx-border-width: 1 0 0 0; -fx-border-style: solid;">
+            <HBox alignment="CENTER_LEFT" spacing="5">
+                <FontAwesomeIconView glyphName="COPYRIGHT" size="1.2em" />
+
+                <Label text="2025 Andy Joy. All rights reserved." />
+
                 <VBox.margin>
                     <Insets top="5" right="10" bottom="5" left="10"/>
                 </VBox.margin>
-            </Text>
+            </HBox>
         </VBox>
     </bottom>
 </BorderPane>

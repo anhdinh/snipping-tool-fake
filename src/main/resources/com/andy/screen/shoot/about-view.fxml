@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.andy.screen.shoot.controller.AboutController"
-            prefHeight="320" prefWidth="520">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.andy.screen.shoot.controller.AboutController" style="-fx-background-color: #f4f4f4;">
 
-</AnchorPane>
+    <top>
+        <VBox alignment="CENTER" spacing="5">
+            <BorderPane.margin>
+                <Insets top="30" bottom="20"/>
+            </BorderPane.margin>
+            <Label text="Screen Shot App" style="-fx-font-size: 24px; -fx-font-weight: bold;">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+            <Label text="A simple and elegant screen capture utility" style="-fx-font-style: italic;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="10" alignment="CENTER_LEFT" maxWidth="400">
+            <HBox spacing="10">
+                <Label text="Author:" style="-fx-font-weight: bold;"/>
+                <Label text="Andy Joy" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Year Released:" style="-fx-font-weight: bold;"/>
+                <Label text="2025" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="License:" style="-fx-font-weight: bold;"/>
+                <Label text="MIT License" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Source Code:" style="-fx-font-weight: bold;"/>
+                <Label text="https://github.com/andyjoy/screenshoot" />
+            </HBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="20" bottom="20"/>
+            </BorderPane.margin>
+            <Label text="© 2025 Andy Joy. All rights reserved." style="-fx-font-size: 10px;"/>
+        </VBox>
+    </bottom>
+
+</BorderPane>
