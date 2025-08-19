@@ -33,6 +33,15 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/versions/9/module-info.class</exclude>
+                    <exclude>META-INF/versions/9/module-info.class</exclude>
+                  </excludes>
+                </filter>
+              </filters>
               <transformers>
                 <transformer>
                   <mainClass>com.andy.screen.shoot.Launcher</mainClass>
@@ -45,6 +54,12 @@
     </plugins>
   </build>
   <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.38</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
